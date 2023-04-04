@@ -85,3 +85,12 @@ ApplicationContext applicationContext = new AnnotationConfigApplicationContext(A
 applicationContext.getBean("빈이름",클래스); 로 컨테이너에서 가져올 수 있다.
 
 # jdbc와 jpa
+## jdbc
+jdbc는 자바에서 DB에 접근할 수 있도록 지원하는 API이다. jdbc에는 plain jdbc와 spring jdbc가 있다. spring에서 지원하는 spring jdbc는 plain jdbc에 비해서 따로 예외처리를 해주지 않아도 되고, 또한 트랜잭션 처리도 해주지 않아도 되기 때문에 plain jdbc에 비해 훨신 코드가 간결하다는 장점이 존재한다. spring jdbc에서 자체적으로 connnection 여닫기, 예외처리를 해주기 때문에 훨씬 더 유리하지만 spring jdbc에서도 직접 sql 쿼리문을 작성해야지 DB에 접근을 할 수 있다. 물론 DB를 다루기 위해선 sql을 사용하는 것이 당연하지만 sql을 사용하기 때문에 객체 지향 개발이 어렵다는 단점이 존재한다.
+
+## jpa
+위에서 jdbc에 수많은 기능이 존재하지만 그럼에도 불구하고 sql 쿼리를 사용하기 때문에 객체지향 개발이 어렵다는 단점이 있다고 말했다. 따라서 이러한 문제점을 해결하기 위해서 jpa를 사용한다. 
+먼저 jpa를 설명하기 위해선 ORM 기술에 대해서 알아야한다. ORM은 데이터 베이스 테이블을 자바 객체로 매핑해서 SQL 쿼리를 작성할 필요 없이 자동으로 SQL을 생성해주는 기술을 의미한다. 따라서 ORM 기술을 사용한다면 굳이 SQL을 사용하지 않고 개발이 가능하다. 그리고 자바에서 지원하는 ORM API를 jpa(java persistence api)라고 한다. persistence라는 것은 말 그대로 영속성이라는 뜻을 가진다. 
+영속성에 대해서 설명하자면, 예를 들어 우리가 int형 변수에 데이터를 담는 프로그램을 실행한다고 하자. 그러면 그 프로그램을 재 실행했을 때 그 변수에 내가 이전에 담은 데이터가 담겨 있을까? 아니다. 일반적인 경우에 데이터는 휘발성을 가지기에 따로 파일이나 DB, 저장장치에 저장을 하지 않는 이상 데이터가 날라가 버린다. 영속성은 프로그램이 종료되어도 데이터가 사라지지 않는 특성을 의미한다. 즉, 영속성을 가진다면 데이터는 나중에 프로그램을 실행하더라도 데이터는 남아있게 된다.
+
+암튼... 결론적으로 jpa는 객체를 이용해 sql 쿼리를 사용하지 않고 DB에 접근할 수 있도록 자바에서 지원하는 API이다. jpa의 대표적인 구현체로는 hibernate가 있다.
