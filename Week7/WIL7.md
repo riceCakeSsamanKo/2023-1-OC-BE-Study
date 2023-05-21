@@ -11,7 +11,43 @@
 기존 코드를 변경하지 않는 것.
 다형성을 활용해 확장에는 열려있으나 변경에는 닫혀있도록한다.
 다형성만 가지고는 OCP 원칙을 지킬수 없다.
-객체를 생성하고 연관관계를 맺어주는 별도의 조립, 설정자가 필요
+객체를 생성하고 연관관계를 맺어주는 별도의 조립, 설정자가 필요.
+
+OCP는 추상화를 하는 것이라고 생각하면 편한데, 추상화를 했을 때 장점은 다음과 같다. 어떠한 기능이 추가가 된다고 하더라도 클래스의 수정이 필요 없다.
+abstract class Animal {
+    abstract void speak();
+}
+
+class Cat extends Animal { // 상속
+    void speak() {
+        System.out.println("냐옹");
+    }
+}
+
+class Dog extends Animal { // 상속
+    void speak() {
+        System.out.println("멍멍");
+    }
+}
+
+class HelloAnimal {
+    void hello(Animal animal) {
+        animal.speak();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        HelloAnimal hello = new HelloAnimal();
+
+        Animal cat = new Cat();
+        Animal dog = new Dog();
+
+        hello.hello(cat); // 냐옹
+        hello.hello(dog); // 멍멍
+    }
+}
+위 처럼 Animal 클래스를 추상 클래스로 설정하고 이를 Cat과 Dog가 상속 받는다면 각각 speak() 함수를 구현한다면 hello.hello() 함수의 인자로 만일 Cat과 Dog가 아닌 다른 Lion과 같이 새로 생성된 인스턴스가 추가된다고 하더라도 HelloAnimal 클래스 자체는 수정이 필요없이 기능 확장이 된다.
 
 ## LSP : 리스코프 치환 원칙
 인터페이스의 규약이 존재한다면 하위 클래스는 무조건 그 규약을 지켜야함.
